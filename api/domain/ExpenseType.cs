@@ -1,4 +1,8 @@
-﻿namespace api.domain;
+﻿using System.Text.Json.Serialization;
+
+namespace api.domain;
+
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum ExpenseType
 {
     Food,

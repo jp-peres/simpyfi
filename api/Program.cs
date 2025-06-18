@@ -1,4 +1,5 @@
 using api.dto;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +7,9 @@ builder.Services.AddCors();
 // Add services to the container.
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+var expenses = new List<ExpenseDTO>();
+var counter = 1;
 
 var app = builder.Build();
 
@@ -24,11 +28,21 @@ app.UseCors(policy =>
     .AllowAnyHeader();
 });
 
-app.MapPost("/hello", (HelloAPIDTO data) =>
+app.MapGet("/api/v1/expenses/{Id}", (int Id) =>
 {
-    return Results.Ok(new HelloAPIDTO($"Hello, {data.name}"));
+    var expense = expenses.SingleOrDefault(p => p.Id == Id);
+
+    return expense == null ? Results.NotFound() : Results.Ok(expense);
+});
+
+app.MapPost("/api/v1/expenses", ([FromBody] CreateExpenseDTO expense) =>
+{
+    var newExpense = new ExpenseDTO(counter, expense.Name, expense.Description, expense.Type, expense.Denomination, expense.Quantity, expense.ExpenseDate, expense.ExpenseDate);
+    expenses.Add(newExpense);
+    counter++;
+    return Results.Created($"/api/v1/expenses/{newExpense.Id}", newExpense);
 })
-.WithName("HelloAPI")
+.WithName("Create Expense")
 .WithOpenApi(); ;
 
 
