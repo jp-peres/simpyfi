@@ -37,6 +37,9 @@
   --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
+
+  --colorbg1: linear-gradient(147deg, #7BE495, #104515);
+  --colorbg2: linear-gradient(90deg, #1f2545, #216f9f);
 }
 
 @theme {
@@ -45,6 +48,8 @@
   --color-grad-3: linear-gradient(147deg, #56C596, #7BE495);
   --color-grad-4: linear-gradient(147deg, #7BE495, #CFF4D2);
   --color-grad-5: linear-gradient(147deg, #DC8665, #EEB462);
+  --color-grad-6: linear-gradient(147deg, #104515, #7BE495);
+  --color-grad-7: linear-gradient(180deg, #1f2545, #216f9f);
 }
 
 @theme inline {
